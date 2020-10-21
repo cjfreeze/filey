@@ -26,7 +26,8 @@ defmodule Filey.MixProject do
     [
       {:ecto, "~> 3.5"},
       {:gcs, "~> 0.1.0"},
-      {:ecto_sql, "~> 3.5"}
+      {:ecto_sql, "~> 3.5"},
+      {:ex_doc, ">= 0.0.0", only: :dev, runtime: false}
     ]
   end
 
