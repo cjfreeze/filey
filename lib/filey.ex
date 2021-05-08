@@ -69,7 +69,7 @@ defmodule Filey do
         |> create_file_multi(filename, ct, opts)
         |> @repo.transaction()
         |> case do
-          {:ok, %{add_path: file}} -> {:ok, file}
+          {:ok, %{finalize_file: file}} -> {:ok, file}
           {:error, :create_file, _, _} -> {:error, :gcs_error}
           {:error, _, changeset, _} -> {:error, changeset}
         end
