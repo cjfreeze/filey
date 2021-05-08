@@ -27,6 +27,12 @@ defmodule Filey.MixProject do
       {:ecto, "~> 3.5"},
       {:gcs, "~> 0.1.0"},
       {:ecto_sql, "~> 3.5"},
+      {:ex_aws, "~> 2.1"},
+      {:ex_aws_s3, "~> 2.0"},
+      {:hackney, "~> 1.9"},
+      {:sweet_xml, "~> 0.6"},
+      {:jason, "~> 1.0"},
+      {:configparser_ex, "~> 4.0"},
       {:ex_doc, ">= 0.0.0", only: :dev, runtime: false}
     ]
   end
