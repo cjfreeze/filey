@@ -125,26 +125,29 @@ defmodule Filey do
     end
   end
 
-  @client Application.get_env(:filey, :client, Filey.Client.Memory)
   alias File
 
+  defp client do
+    Application.get_env(:filey, :client, Filey.Client.Memory)
+  end
+
   def upload(%{bucket: bucket} = file, path, opts \\ []) do
-    @client.upload(bucket, file, path, opts)
+    client().upload(bucket, file, path, opts)
   end
 
   def download(%{bucket: bucket} = file, opts \\ []) do
-    @client.download(bucket, file, opts)
+    client().download(bucket, file, opts)
   end
 
   def delete(%{bucket: bucket} = file, opts \\ []) do
-    @client.download(bucket, file, opts)
+    client().download(bucket, file, opts)
   end
 
   def get_path(file, opts \\ []) do
-    @client.get_path(file, opts)
+    client().get_path(file, opts)
   end
 
   def get_url(%{bucket: bucket} = file, opts \\ []) do
-    @client.get_url(bucket, file, opts)
+    client().get_url(bucket, file, opts)
   end
 end
