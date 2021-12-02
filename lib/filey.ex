@@ -113,9 +113,20 @@ defmodule Filey do
         |> @repo.update()
       end
 
+      def delete_file_multi(%File{} = file) do
+        Ecto.Multi.new()
+        |> Ecto.Multi.delete(:delete_file, file)
+        |> Ecto.Multi.run(:delete_remote_file, fn _, _ -> Filey.delete(file) end)
+      end
+
       def delete_file(%File{} = file) do
-        with {:ok, _} <- Filey.delete(file) do
-          @repo.delete(file)
+        file
+        |> delete_file_multi()
+        |> @repo.transaction()
+        |> case do
+          {:ok, %{delete_file: file}} -> {:ok, file}
+          {:error, :delete_remote_file, _, _} -> {:error, :gcs_error}
+          {:error, _, error, _} -> {:error, error}
         end
       end
 
@@ -140,7 +151,7 @@ defmodule Filey do
   end
 
   def delete(%{bucket: bucket} = file, opts \\ []) do
-    client().download(bucket, file, opts)
+    client().delete(bucket, file, opts)
   end
 
   def get_path(file, opts \\ []) do

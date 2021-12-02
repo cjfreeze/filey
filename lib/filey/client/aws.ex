@@ -10,7 +10,7 @@ defmodule Filey.Client.AWS do
     operation =
       file_path
       |> S3.Upload.stream_file()
-      |> S3.upload(bucket, upload_path)
+      |> S3.upload(bucket, upload_path, content_type: file.content_type)
 
     with {:ok, _result} <- ExAws.request(operation) do
       {:ok, upload_path}
