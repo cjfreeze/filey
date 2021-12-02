@@ -42,6 +42,12 @@ defmodule Filey do
         defp put_bucket(changeset) do
           put_change(changeset, :bucket, @bucket)
         end
+
+        defimpl String.Chars, for: __MODULE__ do
+          def to_string(file) do
+            Filey.get_url(file)
+          end
+        end
       end
 
       alias __MODULE__.File
