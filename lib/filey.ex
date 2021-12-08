@@ -48,6 +48,12 @@ defmodule Filey do
             Filey.get_url(file)
           end
         end
+
+        defimpl Phoenix.HTML.Safe, for: __MODULE__ do
+          def to_iodata(file) do
+            Filey.get_url(file)
+          end
+        end
       end
 
       alias __MODULE__.File
